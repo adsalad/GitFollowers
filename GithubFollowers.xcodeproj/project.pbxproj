@@ -15,6 +15,7 @@
 		47EFB63727F54BA200CAEF86 /* FavouriteListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EFB63627F54BA200CAEF86 /* FavouriteListVC.swift */; };
 		47EFB63927F5651800CAEF86 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EFB63827F5651800CAEF86 /* GFButton.swift */; };
 		47EFB63B27F623BC00CAEF86 /* GFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EFB63A27F623BC00CAEF86 /* GFTextField.swift */; };
+		47EFB63D27FA77B700CAEF86 /* FollowersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EFB63C27FA77B700CAEF86 /* FollowersListVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		47EFB63627F54BA200CAEF86 /* FavouriteListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteListVC.swift; sourceTree = "<group>"; };
 		47EFB63827F5651800CAEF86 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
 		47EFB63A27F623BC00CAEF86 /* GFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTextField.swift; sourceTree = "<group>"; };
+		47EFB63C27FA77B700CAEF86 /* FollowersListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersListVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				47EFB62927F4235800CAEF86 /* Assets.xcassets */,
 				47EFB62B27F4235800CAEF86 /* LaunchScreen.storyboard */,
 				47EFB62E27F4235800CAEF86 /* Info.plist */,
+				47EFB63C27FA77B700CAEF86 /* FollowersListVC.swift */,
 			);
 			path = GithubFollowers;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47EFB63B27F623BC00CAEF86 /* GFTextField.swift in Sources */,
+				47EFB63D27FA77B700CAEF86 /* FollowersListVC.swift in Sources */,
 				47EFB63527F54B7800CAEF86 /* SearchVC.swift in Sources */,
 				47EFB63927F5651800CAEF86 /* GFButton.swift in Sources */,
 				47EFB62127F4235700CAEF86 /* AppDelegate.swift in Sources */,
