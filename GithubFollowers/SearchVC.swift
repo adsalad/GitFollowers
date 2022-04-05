@@ -17,7 +17,6 @@ class SearchVC: UIViewController {
         return !usernameTextField.text!.isEmpty
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -40,7 +39,7 @@ class SearchVC: UIViewController {
     @objc func pushFollowersListVC () {
         
         guard isUserNameEntered else {
-            print("No username")
+            presentGFAlertOnMainThread(title: "Empty Username", message: "Please Enter a Username", buttonTitle: "Ok")
             return
         }
         
