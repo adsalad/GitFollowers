@@ -32,14 +32,13 @@ class SearchVC: UIViewController {
     }
     
     func dismissKeyboardTapGesture() {
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing)) //
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing)) // tap to dismiss
         view.addGestureRecognizer(tap) //
     }
     
     @objc func pushFollowersListVC () {
-        
         guard isUserNameEntered else {
-            presentGFAlertOnMainThread(title: "Empty Username", message: "Please Enter a Username", buttonTitle: "Ok")
+            self.presentGFAlertOnMainThread(title: "Empty Username", message: "Please Enter a Username", buttonTitle: "Ok")
             return
         }
         

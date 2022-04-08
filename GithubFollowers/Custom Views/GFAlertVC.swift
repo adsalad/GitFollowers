@@ -40,13 +40,14 @@ class GFAlertVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func configureContainerView() {
         view.addSubview(containerView)
         containerView.backgroundColor           = .systemBackground
         containerView.layer.cornerRadius        = 16
         containerView.layer.borderWidth         = 2
         containerView.layer.borderColor         = UIColor.white.cgColor
-        containerView.translatesAutoresizingMaskIntoConstraints = true
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -55,6 +56,7 @@ class GFAlertVC: UIViewController {
             containerView.heightAnchor.constraint(equalToConstant: 220)
         ])
     }
+    
     
     func configureTitleLabel() {
         containerView.addSubview(titleLabel)
@@ -81,6 +83,7 @@ class GFAlertVC: UIViewController {
         ])
     }
     
+    
     func configureMessageLabel() {
         containerView.addSubview(messageLabel)
         messageLabel.text           = message ?? "Unable to load message"
@@ -94,6 +97,7 @@ class GFAlertVC: UIViewController {
         ])
         
     }
+    
 
     @objc func dismissVC() {
         dismiss(animated: true)
