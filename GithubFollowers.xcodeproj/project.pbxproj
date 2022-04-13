@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		47583E6A2806377800BBE868 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47583E692806377800BBE868 /* UIHelper.swift */; };
 		47EFB62127F4235700CAEF86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EFB62027F4235700CAEF86 /* AppDelegate.swift */; };
 		47EFB62327F4235700CAEF86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EFB62227F4235700CAEF86 /* SceneDelegate.swift */; };
 		47EFB62A27F4235800CAEF86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47EFB62927F4235800CAEF86 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		47583E692806377800BBE868 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		47EFB61D27F4235700CAEF86 /* GithubFollowers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubFollowers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EFB62027F4235700CAEF86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47EFB62227F4235700CAEF86 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				47EFB65227FFDDF600CAEF86 /* ErrorMessage.swift */,
+				47583E692806377800BBE868 /* UIHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				47EFB63D27FA77B700CAEF86 /* FollowersListVC.swift in Sources */,
 				47EFB63527F54B7800CAEF86 /* SearchVC.swift in Sources */,
 				47EFB63927F5651800CAEF86 /* GFButton.swift in Sources */,
+				47583E6A2806377800BBE868 /* UIHelper.swift in Sources */,
 				47EFB6582803571000CAEF86 /* GFAvatarImageView.swift in Sources */,
 				47EFB64327FBB75300CAEF86 /* GFAlertVC.swift in Sources */,
 				47EFB6552803563A00CAEF86 /* GFFollowerCell.swift in Sources */,

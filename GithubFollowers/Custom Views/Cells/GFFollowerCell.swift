@@ -31,8 +31,8 @@ class GFFollowerCell: UICollectionViewCell {
     
     
     private func configure() {
-        addSubview(avatarImageView)
-        addSubview(usernameLabel)
+        contentView.addSubview(avatarImageView)
+        contentView.addSubview(usernameLabel)
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
@@ -41,8 +41,8 @@ class GFFollowerCell: UICollectionViewCell {
             
             usernameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 12),
             usernameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            usernameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 8),
-            usernameLabel.heightAnchor.constraint(equalToConstant: 8),
+            usernameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            usernameLabel.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     
