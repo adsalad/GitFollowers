@@ -17,4 +17,11 @@ extension UIViewController {
             self.present(alertVC, animated: true)
         }
     }
+    
+    func showEmptyScreenView(with message: String, in view: UIView) {
+        let emptyStateView = GFEmptyStateView(message: message)
+        emptyStateView.frame = view.bounds
+        view.addSubview(emptyStateView)
+    }
 }
+
