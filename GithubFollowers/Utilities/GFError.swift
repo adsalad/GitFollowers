@@ -1,8 +1,8 @@
 //
-//  ErrorMessage.swift
+//  GFError.swift
 //  GithubFollowers
 //
-//  Created by Adam S on 2022-04-07.
+//  Created by Adam S on 2022-04-20.
 //
 
 import Foundation

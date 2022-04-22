@@ -12,10 +12,12 @@ class FollowersListVC: UIViewController {
     enum Section { case main }
     
     var page: Int = 1
-    var hasMoreFollowers = true
     var username: String!
     var followers: [Follower] = []
     var filteredFollowers: [Follower] = []
+    
+    var hasMoreFollowers = true
+    var isSearching = false
     
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
@@ -113,17 +115,32 @@ extension FollowersListVC : UICollectionViewDelegate {
             getFollowers(username: username, page: page)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let activeArray     = isSearching ? filteredFollowers : followers
+        
+        let follower        = activeArray[indexPath.item]
+        
+        let userInfoVC      = UserInfoVC()
+        userInfoVC.username = follower.login
+        let navController   = UINavigationController(rootViewController: userInfoVC)
+        present(navController, animated: true)
+        
+    }
 }
 
 extension FollowersListVC : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {return}
         
+        isSearching = true
+        
         filteredFollowers = followers.filter({$0.login.lowercased().contains(searchText.lowercased())} )
         updateData(in: filteredFollowers)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = false
         updateData(in: followers)
     }
 }
