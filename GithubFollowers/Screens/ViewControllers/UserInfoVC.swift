@@ -9,9 +9,10 @@ import UIKit
 
 class UserInfoVC: UIViewController {
     
-    let headerView = UIView()
-    let itemViewOne = UIView()
-    let itemViewTwo = UIView()
+    let headerView          = UIView()
+    let itemViewOne         = UIView()
+    let itemViewTwo         = UIView()
+    let dateLabel           = GFBodyLabel(textAlignment: .center)
     var itemViews: [UIView] = []
     
     var username: String!
@@ -38,6 +39,10 @@ class UserInfoVC: UIViewController {
             case .success(let user):
                 DispatchQueue.main.async {
                     self.add(childVC: GFUserInfoHeaderVC(user: user), to: self.headerView)
+                    self.add(childVC: GFRepoItemVC(user: user), to: self.itemViewOne)
+                    self.add(childVC: GFFollowerItemVC(user: user), to: self.itemViewTwo)
+                    self.dateLabel.text = "Date to be Entered \(user.createdAt.convertToDisplayFormat())"
+                    
                 }
             case.failure(let error):
                 self.presentGFAlertOnMainThread(title: "Something went wrong!", message: error.rawValue, buttonTitle: "Ok")
@@ -47,30 +52,32 @@ class UserInfoVC: UIViewController {
     
     func layoutUI() {
         
-        itemViews = [headerView, itemViewOne, itemViewTwo]
+        itemViews = [headerView, itemViewOne, itemViewTwo, dateLabel]
         
         for itemView in itemViews {
             view.addSubview(itemView)
             itemView.translatesAutoresizingMaskIntoConstraints = false
             
             // adds leading and trailing constraints so that views dont bleed to left/right edge of screen
-            // using a loop to simplify the code, otherwise the below constraint array would have very repetitive code
+            // using a loop to simplify the code, otherwise the below constraint array would contain very repetitive code for all itemViews
             NSLayoutConstraint.activate([
                 itemView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
                 itemView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             ])
         }
         
-        itemViewTwo.backgroundColor = .systemRed
-        itemViewOne.backgroundColor = .systemRed
-        
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 180),
+            
             itemViewOne.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 20),
             itemViewOne.heightAnchor.constraint(equalToConstant: 140),
+            
             itemViewTwo.topAnchor.constraint(equalTo: itemViewOne.bottomAnchor, constant: 20),
             itemViewTwo.heightAnchor.constraint(equalToConstant: 140),
+            
+            dateLabel.topAnchor.constraint(equalTo: itemViewTwo.bottomAnchor, constant: 20),
+            dateLabel.heightAnchor.constraint(equalToConstant: 18)
         ])
     }
     
