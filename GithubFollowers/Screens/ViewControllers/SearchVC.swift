@@ -17,6 +17,7 @@ class SearchVC: UIViewController {
         return !usernameTextField.text!.isEmpty
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -26,15 +27,18 @@ class SearchVC: UIViewController {
         dismissKeyboardTapGesture()
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
     }
     
+    
     func dismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing)) // tap to dismiss
         view.addGestureRecognizer(tap) //
     }
+    
     
     @objc func pushFollowersListVC () {
         guard isUserNameEntered else {
@@ -47,6 +51,7 @@ class SearchVC: UIViewController {
         followersListVC.title       = usernameTextField.text //might need to change this
         navigationController?.pushViewController(followersListVC, animated: true)
     }
+    
     
     func configureLogoImageView() {
         view.addSubview(logoImageView)
@@ -61,6 +66,7 @@ class SearchVC: UIViewController {
         ])
     }
     
+    
     func configureTextField() {
         view.addSubview(usernameTextField)
         usernameTextField.delegate = self //assign delegate to SearchVC (listen to me) (boss is usernameTextField)
@@ -72,6 +78,7 @@ class SearchVC: UIViewController {
             usernameTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
+    
     
     func configureCalltoActionButton() {
         view.addSubview(callToActionButton)

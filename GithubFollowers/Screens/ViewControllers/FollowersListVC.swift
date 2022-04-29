@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol FollowersListVCDelegate : AnyObject {
+    func didRequestFollowers(for username: String)
+}
+
 class FollowersListVC: UIViewController {
     
     enum Section { case main }
@@ -31,14 +35,19 @@ class FollowersListVC: UIViewController {
         getFollowers(username: username, page: page)
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
     }
+    
     
     func configureViewController() {
         view.backgroundColor                                    = .systemBackground
         navigationController?.isNavigationBarHidden             = false
         navigationController?.navigationBar.prefersLargeTitles  = true
+        
+        let addButton                                           = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem                       = addButton
     }
     
     
@@ -59,14 +68,15 @@ class FollowersListVC: UIViewController {
         })
     }
     
+    
     func configureSearchController() {
         let searchController = UISearchController()
         searchController.searchBar.delegate         = self
         searchController.searchBar.placeholder      = "Search for a username"
         navigationItem.hidesSearchBarWhenScrolling  = false
         navigationItem.searchController             = searchController
-        
     }
+    
     
     func getFollowers(username: String, page: Int) {
         NetworkManager.shared.getFollowers(for: username, page: page) { [weak self] result in
@@ -74,7 +84,7 @@ class FollowersListVC: UIViewController {
             
             switch result {
             case .success(let followers):
-                if followers.count < 30 {self.hasMoreFollowers = false}
+                if followers.count < 30 { self.hasMoreFollowers = false }
                 self.followers.append(contentsOf: followers)
                 
                 if self.followers.isEmpty {
@@ -86,10 +96,11 @@ class FollowersListVC: UIViewController {
                 }
                 self.updateData(in: self.followers)
             case .failure(let error):
-                self.presentGFAlertOnMainThread(title: "Bad stuff", message: error.rawValue, buttonTitle: "Ok")
+                self.presentGFAlertOnMainThread(title: "Bad Network Call", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
+    
     
     func updateData(in followers : [Follower]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
@@ -100,6 +111,8 @@ class FollowersListVC: UIViewController {
             self.dataSource.apply(snapshot, animatingDifferences: true)
         }
     }
+    
+    @objc func addButtonTapped() {}
 }
 
 
@@ -109,6 +122,7 @@ extension FollowersListVC : UICollectionViewDelegate {
         let contentHeight   = scrollView.contentSize.height
         let height          = scrollView.frame.size.height
         
+        // load next group of followers
         if offsetY > contentHeight - height {
             guard hasMoreFollowers else { return }
             page += 1
@@ -122,8 +136,9 @@ extension FollowersListVC : UICollectionViewDelegate {
         let follower        = activeArray[indexPath.item]
         
         let userInfoVC      = UserInfoVC()
+        userInfoVC.delegate = self
         userInfoVC.username = follower.login
-        let navController   = UINavigationController(rootViewController: userInfoVC)
+        let navController   = UINavigationController(rootViewController: userInfoVC) //present sheet view
         present(navController, animated: true)
         
     }
@@ -131,7 +146,7 @@ extension FollowersListVC : UICollectionViewDelegate {
 
 extension FollowersListVC : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {return}
+        if searchText.isEmpty { return }
         
         isSearching = true
         
@@ -142,5 +157,16 @@ extension FollowersListVC : UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         isSearching = false
         updateData(in: followers)
+    }
+}
+
+extension FollowersListVC: FollowersListVCDelegate {
+    func didRequestFollowers(for username: String) {
+        self.username   = username
+        title           = username
+        page            = 1
+        followers.removeAll()
+        filteredFollowers.removeAll()
+        getFollowers(username: username, page: page)
     }
 }
