@@ -8,3 +8,4 @@ GitHub Social Network
 - Diffable Data Source
 - Async/Await
 - Programmatic UI
+- How to run section
