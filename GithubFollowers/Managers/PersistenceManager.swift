@@ -20,6 +20,8 @@ enum PersistenceManager {
         static let favourites = "favourites"
     }
     
+    // Result type type is very useful, but I don't really see the point of a completion handler. I have no choice here...
+    // this function updates favourites when user adds a new user to favourites, or removes them
     static func updateWith(favourite: Follower, actionType: PersistenceActionType, completed: @escaping (GFError?) -> Void) {
         retrieveFavourites { result in
             switch result {
@@ -38,15 +40,15 @@ enum PersistenceManager {
                 }
                 
                 completed(saveFavourites(favourites: favourites))
+                
             case .failure(let error):
                 completed(error)
             }
         }
     }
     
-    
+    // retrieves favourites from UserDefaults
     static func retrieveFavourites(completed: @escaping (Result<[Follower], GFError>) -> Void) {
-        
         // first time access/retrieval
         guard let favouritesData = defaults.object(forKey: Keys.favourites) as? Data else {
             completed(.success([]))
@@ -63,7 +65,7 @@ enum PersistenceManager {
         }
     }
     
-    // save favourites
+    // save favourites to UserDefaults
     static func saveFavourites(favourites: [Follower]) -> GFError? {
         
         do {

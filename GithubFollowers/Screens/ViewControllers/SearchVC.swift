@@ -27,6 +27,9 @@ class SearchVC: UIViewController {
         dismissKeyboardTapGesture()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        usernameTextField.text = ""
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

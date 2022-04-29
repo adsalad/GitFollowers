@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		473B94F6281B84FE00DC7C95 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473B94F5281B84FE00DC7C95 /* PersistenceManager.swift */; };
+		473B94F8281C290500DC7C95 /* GFFavouriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473B94F7281C290500DC7C95 /* GFFavouriteCell.swift */; };
 		4746B41C28159C2B00009AB0 /* GFItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4746B41B28159C2B00009AB0 /* GFItemInfoView.swift */; };
 		4746B41E2815A13800009AB0 /* GFItemInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4746B41D2815A13800009AB0 /* GFItemInfoVC.swift */; };
 		4746B4202815F39600009AB0 /* GFRepoItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4746B41F2815F39600009AB0 /* GFRepoItemVC.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		473B94F5281B84FE00DC7C95 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		473B94F7281C290500DC7C95 /* GFFavouriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFavouriteCell.swift; sourceTree = "<group>"; };
 		4746B41B28159C2B00009AB0 /* GFItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemInfoView.swift; sourceTree = "<group>"; };
 		4746B41D2815A13800009AB0 /* GFItemInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemInfoVC.swift; sourceTree = "<group>"; };
 		4746B41F2815F39600009AB0 /* GFRepoItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFRepoItemVC.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				47EFB6542803563A00CAEF86 /* GFFollowerCell.swift */,
+				473B94F7281C290500DC7C95 /* GFFavouriteCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				47EFB6552803563A00CAEF86 /* GFFollowerCell.swift in Sources */,
 				4746B4222815F58900009AB0 /* GFFollowerItemVC.swift in Sources */,
 				4746B41C28159C2B00009AB0 /* GFItemInfoView.swift in Sources */,
+				473B94F8281C290500DC7C95 /* GFFavouriteCell.swift in Sources */,
 				47EFB64127FBB65200CAEF86 /* GFBodyLabel.swift in Sources */,
 				47EFB63F27FBB51400CAEF86 /* GFTitleLabel.swift in Sources */,
 				4784238328126D1800D43C84 /* GFUserInfoHeaderVC.swift in Sources */,
