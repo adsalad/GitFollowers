@@ -40,7 +40,7 @@ class UserInfoVC: UIViewController {
     
     
     func getUserInfo() {
-        NetworkManager.shared.getUser(for: username) {[weak self] result in
+        NetworkManager.shared.getUser(for: username) { [weak self] result in
             
             guard let self = self else { return }
             
@@ -102,10 +102,10 @@ class UserInfoVC: UIViewController {
     
     
     func add(childVC: UIViewController, to containerView: UIView) {
-        addChild(childVC) //?
-        containerView.addSubview(childVC.view) ///?
-        childVC.view.frame = containerView.bounds///?
-        childVC.didMove(toParent: self) ///?
+        addChild(childVC)
+        containerView.addSubview(childVC.view)
+        childVC.view.frame = containerView.bounds
+        childVC.didMove(toParent: self)
     }
     
     

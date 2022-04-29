@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		473B94F6281B84FE00DC7C95 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473B94F5281B84FE00DC7C95 /* PersistenceManager.swift */; };
 		4746B41C28159C2B00009AB0 /* GFItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4746B41B28159C2B00009AB0 /* GFItemInfoView.swift */; };
 		4746B41E2815A13800009AB0 /* GFItemInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4746B41D2815A13800009AB0 /* GFItemInfoVC.swift */; };
 		4746B4202815F39600009AB0 /* GFRepoItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4746B41F2815F39600009AB0 /* GFRepoItemVC.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		473B94F5281B84FE00DC7C95 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		4746B41B28159C2B00009AB0 /* GFItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemInfoView.swift; sourceTree = "<group>"; };
 		4746B41D2815A13800009AB0 /* GFItemInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemInfoVC.swift; sourceTree = "<group>"; };
 		4746B41F2815F39600009AB0 /* GFRepoItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFRepoItemVC.swift; sourceTree = "<group>"; };
@@ -87,6 +89,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		473B94F4281B84EB00DC7C95 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				47EFB64F27FFD24B00CAEF86 /* NetworkManager.swift */,
+				473B94F5281B84FE00DC7C95 /* PersistenceManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		47EFB61427F4235700CAEF86 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +117,7 @@
 		47EFB61F27F4235700CAEF86 /* GithubFollowers */ = {
 			isa = PBXGroup;
 			children = (
+				473B94F4281B84EB00DC7C95 /* Managers */,
 				47EFB65127FFDDE600CAEF86 /* Utilities */,
 				47EFB64A27FFC35E00CAEF86 /* Model */,
 				47EFB62E27F4235800CAEF86 /* Info.plist */,
@@ -165,7 +177,6 @@
 			children = (
 				47EFB64B27FFC45A00CAEF86 /* Follower.swift */,
 				47EFB64D27FFCEFA00CAEF86 /* User.swift */,
-				47EFB64F27FFD24B00CAEF86 /* NetworkManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,6 +356,7 @@
 				47EFB62127F4235700CAEF86 /* AppDelegate.swift in Sources */,
 				4746B4242816003200009AB0 /* String+Ext.swift in Sources */,
 				4784238528126D3900D43C84 /* GFSecondaryTitleLabel.swift in Sources */,
+				473B94F6281B84FE00DC7C95 /* PersistenceManager.swift in Sources */,
 				47EFB65027FFD24B00CAEF86 /* NetworkManager.swift in Sources */,
 				47FFEFD0280A1E1C004E25FF /* GFEmptyScreenView.swift in Sources */,
 				4746B426281602D800009AB0 /* Date+Ext.swift in Sources */,
