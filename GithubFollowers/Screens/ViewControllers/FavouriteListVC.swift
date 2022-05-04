@@ -64,10 +64,13 @@ class FavouriteListVC: UIViewController {
 }
 
 extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
+    
+    // return count
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favourites.count
     }
     
+    // present cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GFFavouriteCell.reuseID) as! GFFavouriteCell
         let favourite = favourites[indexPath.row]
@@ -75,6 +78,7 @@ extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    // handle row tap
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favourite = favourites[indexPath.row]
         let userInfoVC = UserInfoVC()
@@ -82,6 +86,7 @@ extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
         navigationController?.pushViewController(userInfoVC, animated: true) //might change this to something with follower list VC
     }
     
+    // handle slide to delete button for UI and Persistence Manager
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         
