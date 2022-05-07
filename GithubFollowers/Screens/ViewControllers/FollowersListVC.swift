@@ -16,7 +16,6 @@ class FollowersListVC: UIViewController {
     enum Section { case main }
     
     let searchController = UISearchController()
-
     
     var page: Int = 1
     var username: String!
@@ -210,8 +209,6 @@ extension FollowersListVC: FollowersListVCDelegate {
         page            = 1
         followers.removeAll()
         filteredFollowers.removeAll()
-        //getFollowers(username: username, page: page)
-        let followersListVC = FollowersListVC(username: username)
-        navigationController?.pushViewController(followersListVC, animated: true)
+        getFollowers(username: username, page: page)
     }
 }

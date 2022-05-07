@@ -63,8 +63,8 @@ class GFItemInfoVC: UIViewController {
     
     
     func layoutUI() {
-        view.addSubview(stackView)
-        view.addSubview(actionButton)
+        view.addSubviews(actionButton, stackView)
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
