@@ -30,7 +30,7 @@ enum PersistenceManager {
                 switch actionType {
                 case .add:
                     guard !favourites.contains(favourite) else {
-                        completed(.alreadyInFavourites)
+                        completed(.alreadyInFavorites)
                         return
                     }
                     favourites.append(favourite)
@@ -61,7 +61,7 @@ enum PersistenceManager {
             let favourites = try decoder.decode([Follower].self, from: favouritesData)
             completed(.success(favourites))
         } catch {
-            completed(.failure(.unableToFavourite))
+            completed(.failure(.alreadyInFavorites))
         }
     }
     
@@ -74,7 +74,7 @@ enum PersistenceManager {
             defaults.set(encodedFavourites, forKey: Keys.favourites)
             return nil
         } catch {
-            return .unableToFavourite
+            return .alreadyInFavorites
         }
     }
 }

@@ -15,13 +15,16 @@ class FollowersListVC: UIViewController {
     
     enum Section { case main }
     
+    let searchController = UISearchController()
+
+    
     var page: Int = 1
     var username: String!
     var followers: [Follower] = []
     var filteredFollowers: [Follower] = []
-    
     var hasMoreFollowers = true
     var isSearching = false
+    var isLoadingMoreFollowers = false
     
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
@@ -32,9 +35,11 @@ class FollowersListVC: UIViewController {
         title           = username
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,14 +54,13 @@ class FollowersListVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
     }
-    
+       
     
     func configureViewController() {
         view.backgroundColor                                    = .systemBackground
         navigationController?.isNavigationBarHidden             = false
         navigationController?.navigationBar.prefersLargeTitles  = true
         
-        // add it somewhere else
         let addButton                                           = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem                       = addButton
     }
@@ -81,7 +85,6 @@ class FollowersListVC: UIViewController {
     
     
     func configureSearchController() {
-        let searchController = UISearchController()
         searchController.searchBar.delegate         = self
         searchController.searchBar.placeholder      = "Search for a username"
         navigationItem.hidesSearchBarWhenScrolling  = false
@@ -90,8 +93,11 @@ class FollowersListVC: UIViewController {
     
     
     func getFollowers(username: String, page: Int) {
+        
+        isLoadingMoreFollowers = true
+        
         NetworkManager.shared.getFollowers(for: username, page: page) { [weak self] result in
-            guard let self = self else { return } 
+            guard let self = self else { return }
             
             switch result {
             case .success(let followers):
@@ -110,6 +116,7 @@ class FollowersListVC: UIViewController {
                 print(self.followers)
                 self.presentGFAlertOnMainThread(title: "Bad Network Call", message: error.rawValue, buttonTitle: "Ok")
             }
+            self.isLoadingMoreFollowers = false
         }
     }
     
@@ -128,7 +135,6 @@ class FollowersListVC: UIViewController {
         
         NetworkManager.shared.getUser(for: username) { [weak self] result in
             guard let self = self else { return }
-
             switch result {
 
             case .success(let user):
@@ -161,7 +167,7 @@ extension FollowersListVC : UICollectionViewDelegate {
         
         // load next group of followers
         if offsetY > contentHeight - height {
-            guard hasMoreFollowers else { return }
+            guard hasMoreFollowers, !isLoadingMoreFollowers else { return }
             page += 1
             getFollowers(username: username, page: page)
         }
@@ -183,17 +189,17 @@ extension FollowersListVC : UICollectionViewDelegate {
 
 extension FollowersListVC : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty { return }
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
+            filteredFollowers.removeAll()
+            updateData(in: followers)
+            isSearching = false
+            return
+        }
         
         isSearching = true
         
         filteredFollowers = followers.filter({$0.login.lowercased().contains(searchText.lowercased())} )
         updateData(in: filteredFollowers)
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
-        updateData(in: followers)
     }
 }
 
@@ -204,6 +210,8 @@ extension FollowersListVC: FollowersListVCDelegate {
         page            = 1
         followers.removeAll()
         filteredFollowers.removeAll()
-        getFollowers(username: username, page: page)
+        //getFollowers(username: username, page: page)
+        let followersListVC = FollowersListVC(username: username)
+        navigationController?.pushViewController(followersListVC, animated: true)
     }
 }
