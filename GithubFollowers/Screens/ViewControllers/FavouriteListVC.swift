@@ -39,28 +39,37 @@ class FavouriteListVC: UIViewController {
         tableView.register(GFFavouriteCell.self, forCellReuseIdentifier: GFFavouriteCell.reuseID)
     }
     
+   
     func getFavourites() {
         PersistenceManager.retrieveFavourites { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let favourites):
-                if self.favourites.isEmpty
-                {
-                    DispatchQueue.main.async {
-                        self.showEmptyScreenView(with: "No Favourites?\nAdd one on the follower screen!", in: self.view)
-                    }
-                }
-                self.favourites = favourites
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.view.bringSubviewToFront(self.tableView)
-                }
+                self.updateUIWithFavourites(with: favourites)
             case .failure(let error):
                 self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
+    
+    
+    func updateUIWithFavourites(with favourites: ([Follower])) {
+        if favourites.isEmpty
+        {
+            DispatchQueue.main.async {
+                self.showEmptyScreenView(with: "No Favourites?\nAdd one on the follower screen!", in: self.view)
+            }
+        }
+        else {
+            self.favourites = favourites
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
+            }
+        }
+    }
+    
 }
 
 extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
@@ -80,10 +89,10 @@ extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
     
     // handle row tap
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let favourite = favourites[indexPath.row]
-        let userInfoVC = UserInfoVC()
-        userInfoVC.username = favourite.login
-        navigationController?.pushViewController(userInfoVC, animated: true) //might change this to something with follower list VC
+        let favorite    = favourites[indexPath.row]
+        let destVC      = FollowersListVC(username: favorite.login)
+        
+        navigationController?.pushViewController(destVC, animated: true)
     }
     
     // handle slide to delete button for UI and Persistence Manager

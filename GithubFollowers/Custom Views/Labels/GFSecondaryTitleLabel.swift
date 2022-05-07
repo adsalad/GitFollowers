@@ -35,5 +35,5 @@ class GFSecondaryTitleLabel: UILabel {
         lineBreakMode               = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false
     }
-
+    
 }

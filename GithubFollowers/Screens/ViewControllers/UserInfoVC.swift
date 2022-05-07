@@ -110,12 +110,13 @@ class UserInfoVC: UIViewController {
     @objc func dismissVC(){
         dismiss(animated: true)
     }
+    
 }
 
 extension UserInfoVC : GFRepoItemVCDelegate {
     func didTapGithubProfile(for user: User) {
         guard let url = URL(string: user.htmlUrl) else {
-            presentGFAlertOnMainThread(title: "Invalid URL", message: "The url attached to this user is invalid.", buttonTitle: "Ok")
+            presentGFAlertOnMainThread(title: "Invalid URL", message: "The URL attached to this user is invalid.", buttonTitle: "Ok")
             return
         }
         presentSafariVC(with: url)
@@ -125,7 +126,7 @@ extension UserInfoVC : GFRepoItemVCDelegate {
 extension UserInfoVC : GFFollowerItemVCDelegate {
     func didTapGetFollowers(for user: User) {
         guard user.followers != 0 else {
-            presentGFAlertOnMainThread(title: "No Followers", message: "This user has no followers", buttonTitle: "Ok")
+            presentGFAlertOnMainThread(title: "No Followers", message: "This user has no followers 😪", buttonTitle: "Ok")
             return
         }
         delegate.didRequestFollowers(for: user.login)

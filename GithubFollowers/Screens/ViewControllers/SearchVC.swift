@@ -12,7 +12,6 @@ class SearchVC: UIViewController {
     let logoImageView       = UIImageView()
     let usernameTextField   = GFTextField()
     let callToActionButton  = GFButton(backgroundColor: .systemGreen, title: "Get Followers")
-    //var logoImageViewTopConstraint: NSLayoutConstraint!
     
     var isUserNameEntered: Bool {
         return !usernameTextField.text!.isEmpty
@@ -44,7 +43,7 @@ class SearchVC: UIViewController {
     
     @objc func pushFollowersListVC () {
         guard isUserNameEntered else {
-            self.presentGFAlertOnMainThread(title: "Empty Username", message: "Please Enter a Username", buttonTitle: "Ok")
+            self.presentGFAlertOnMainThread(title: "Empty Username!", message: "Please Enter a Username 🙂", buttonTitle: "Ok")
             return
         }
         
@@ -57,10 +56,10 @@ class SearchVC: UIViewController {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.image = Images.ghLogo
         
-        //let topConstraintConstant : CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 20 : 80
-        //logoImageViewTopConstraint = logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant)
-        //logoImageViewTopConstraint.isActive = false
+        let topConstraintConstant : CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 20 : 80
+        
         NSLayoutConstraint.activate([
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant),
             logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 200),
@@ -91,6 +90,7 @@ class SearchVC: UIViewController {
             callToActionButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
+    
 }
 
 extension SearchVC: UITextFieldDelegate {

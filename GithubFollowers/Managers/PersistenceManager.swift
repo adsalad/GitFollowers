@@ -16,9 +16,7 @@ enum PersistenceManager {
     
     static private let defaults = UserDefaults.standard
     
-    enum Keys {
-        static let favourites = "favourites"
-    }
+    enum Keys { static let favourites = "favourites" }
     
     // Result type type is very useful, but I don't really see the point of a completion handler. I have no choice here...
     // this function updates favourites when user adds a new user to favourites, or removes them
