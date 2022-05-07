@@ -17,7 +17,6 @@ class GFItemInfoVC: UIViewController {
     
     
     var user: User!
-    var delegate: UserInfoVCDelegate!
 
     init(user: User) {
         super.init(nibName: nil, bundle: nil)

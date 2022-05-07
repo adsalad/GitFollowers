@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol GFFollowerItemVCDelegate : AnyObject {
+    func didTapGetFollowers(for user: User)
+}
+
 class GFFollowerItemVC: GFItemInfoVC {
     
+    var delegate: GFFollowerItemVCDelegate!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureItems()
@@ -23,6 +29,6 @@ class GFFollowerItemVC: GFItemInfoVC {
     
     
     override func actionButtonTapped() {
-        delegate.didTapGetFollowers(for: user) //where does this come from
+        delegate.didTapGetFollowers(for: user) 
     }
 }

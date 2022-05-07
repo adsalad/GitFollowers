@@ -7,10 +7,8 @@
 
 import UIKit
 
-
 protocol UserInfoVCDelegate : AnyObject {
-    func didTapGithubProfile(for user: User)
-    func didTapGetFollowers(for user: User)
+    func didRequestFollowers(for username: String)
 }
 
 class UserInfoVC: UIViewController {
@@ -22,7 +20,7 @@ class UserInfoVC: UIViewController {
     var itemViews: [UIView] = []
     
     var username: String!
-    weak var delegate: FollowersListVCDelegate!
+    weak var delegate: UserInfoVCDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,8 +98,6 @@ class UserInfoVC: UIViewController {
         ])
     }
     
-    // lower limit for pagination
-    // iphone se emptystate fix
     
     func add(childVC: UIViewController, to containerView: UIView) {
         addChild(childVC)
@@ -116,7 +112,7 @@ class UserInfoVC: UIViewController {
     }
 }
 
-extension UserInfoVC : UserInfoVCDelegate {
+extension UserInfoVC : GFRepoItemVCDelegate {
     func didTapGithubProfile(for user: User) {
         guard let url = URL(string: user.htmlUrl) else {
             presentGFAlertOnMainThread(title: "Invalid URL", message: "The url attached to this user is invalid.", buttonTitle: "Ok")
@@ -124,7 +120,9 @@ extension UserInfoVC : UserInfoVCDelegate {
         }
         presentSafariVC(with: url)
     }
-    
+}
+
+extension UserInfoVC : GFFollowerItemVCDelegate {
     func didTapGetFollowers(for user: User) {
         guard user.followers != 0 else {
             presentGFAlertOnMainThread(title: "No Followers", message: "This user has no followers", buttonTitle: "Ok")
@@ -134,4 +132,3 @@ extension UserInfoVC : UserInfoVCDelegate {
         dismissVC()
     }
 }
-
