@@ -97,9 +97,11 @@ class FollowersListVC: UIViewController {
             } catch {
                 guard let GFError = error as? GFError else {
                     presentDefaultErrorAlert()
+                    return
                 }
                 presentGFAlert(title: "Something went wrong", message: GFError.rawValue, buttonTitle: "Ok")
             }
+            isLoadingMoreFollowers = false
         }
     }
     
@@ -131,16 +133,18 @@ class FollowersListVC: UIViewController {
     
     @objc func addButtonTapped() {
         
-        NetworkManager.shared.getUser(for: username) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-                
-            case .success(let user):
-                self.addToFavouritesListAndPersistenceManager(with: user)
-            case .failure(let error):
-                self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
-                
+        Task {
+            do {
+                let user = try await NetworkManager.shared.getUser(for: username)
+                addToFavouritesListAndPersistenceManager(with: user)
+            } catch {
+                guard let GFError = error as? GFError else {
+                    presentDefaultErrorAlert()
+                    return
+                }
+                presentGFAlert(title: "Something went wrong", message: GFError.rawValue, buttonTitle: "Ok")
             }
+            
         }
     }
     
@@ -151,10 +155,15 @@ class FollowersListVC: UIViewController {
             guard let self = self else { return }
             
             guard let error = error else {
-                self.presentGFAlertOnMainThread(title: "Success!", message: "You have succesfully favourited this user!", buttonTitle: "Hooray!")
+                DispatchQueue.main.async {
+                    self.presentGFAlert(title: "Success!", message: "You have succesfully favourited this user!", buttonTitle: "Hooray!")
+                }
                 return
             }
-            self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+            
+            DispatchQueue.main.async {
+                self.presentGFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+            }
         }
     }
     

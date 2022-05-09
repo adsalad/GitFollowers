@@ -48,7 +48,9 @@ class FavouriteListVC: UIViewController {
             case .success(let favourites):
                 self.updateUIWithFavourites(with: favourites)
             case .failure(let error):
-                self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                DispatchQueue.main.async {
+                    self.presentGFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                }
             }
         }
     }
@@ -106,7 +108,9 @@ extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
         PersistenceManager.updateWith(favourite: favourite, actionType: .remove) { [weak self] error in
             guard let self = self else { return }
             guard let error = error else { return }
-            self.presentGFAlertOnMainThread(title: "Unable to remove user", message: error.rawValue, buttonTitle: "oK")
+            DispatchQueue.main.async {
+                self.presentGFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+            }
         }
     }
 }
