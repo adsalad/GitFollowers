@@ -33,7 +33,10 @@ class UserInfoVC: UIViewController {
     func configureViewController(){
         view.backgroundColor                = .systemBackground
         let doneButton                      = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
+        let addButton                                           = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+
         navigationItem.rightBarButtonItem   = doneButton
+        navigationItem.leftBarButtonItem    = addButton
     }
     
     
@@ -105,6 +108,43 @@ class UserInfoVC: UIViewController {
         containerView.addSubview(childVC.view)
         childVC.view.frame = containerView.bounds
         childVC.didMove(toParent: self)
+    }
+    
+    
+    func addToFavouritesListAndPersistenceManager(with user: User) {
+        let favourite = Follower(login: user.login, avatarUrl: user.avatarUrl)
+        
+        PersistenceManager.updateWith(favourite: favourite, actionType: .add) { [weak self] error in
+            guard let self = self else { return }
+            
+            guard let error = error else {
+                DispatchQueue.main.async {
+                    self.presentGFAlert(title: "Success!", message: "You have succesfully favourited this user!", buttonTitle: "Hooray!")
+                }
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.presentGFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+            }
+        }
+    }
+    
+    
+    @objc func addButtonTapped() {
+        Task {
+            do {
+                let user = try await NetworkManager.shared.getUser(for: username)
+                addToFavouritesListAndPersistenceManager(with: user)
+            } catch {
+                guard let GFError = error as? GFError else {
+                    presentDefaultErrorAlert()
+                    return
+                }
+                presentGFAlert(title: "Something went wrong", message: GFError.rawValue, buttonTitle: "Ok")
+            }
+            
+        }
     }
     
     

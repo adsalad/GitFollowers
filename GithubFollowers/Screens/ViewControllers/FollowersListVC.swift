@@ -55,9 +55,6 @@ class FollowersListVC: UIViewController {
         view.backgroundColor                                    = .systemBackground
         navigationController?.isNavigationBarHidden             = false
         navigationController?.navigationBar.prefersLargeTitles  = true
-        
-        let addButton                                           = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
-        navigationItem.rightBarButtonItem                       = addButton
     }
     
     
@@ -127,43 +124,6 @@ class FollowersListVC: UIViewController {
         
         DispatchQueue.main.async {
             self.dataSource.apply(snapshot, animatingDifferences: true)
-        }
-    }
-    
-    
-    @objc func addButtonTapped() {
-        
-        Task {
-            do {
-                let user = try await NetworkManager.shared.getUser(for: username)
-                addToFavouritesListAndPersistenceManager(with: user)
-            } catch {
-                guard let GFError = error as? GFError else {
-                    presentDefaultErrorAlert()
-                    return
-                }
-                presentGFAlert(title: "Something went wrong", message: GFError.rawValue, buttonTitle: "Ok")
-            }
-            
-        }
-    }
-    
-    func addToFavouritesListAndPersistenceManager(with user: User) {
-        let favourite = Follower(login: user.login, avatarUrl: user.avatarUrl)
-        
-        PersistenceManager.updateWith(favourite: favourite, actionType: .add) { [weak self] error in
-            guard let self = self else { return }
-            
-            guard let error = error else {
-                DispatchQueue.main.async {
-                    self.presentGFAlert(title: "Success!", message: "You have succesfully favourited this user!", buttonTitle: "Hooray!")
-                }
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.presentGFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
-            }
         }
     }
     
