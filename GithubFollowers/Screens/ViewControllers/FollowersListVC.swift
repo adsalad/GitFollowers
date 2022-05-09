@@ -88,20 +88,18 @@ class FollowersListVC: UIViewController {
     
     
     func getFollowers(username: String, page: Int) {
-        
         isLoadingMoreFollowers = true
         
-        NetworkManager.shared.getFollowers(for: username, page: page) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let followers):
-                self.updateUIWithFollowers(with: followers)
-            case .failure(let error):
-                print(self.followers)
-                self.presentGFAlertOnMainThread(title: "Bad Network Call", message: error.rawValue, buttonTitle: "Ok")
+        Task {
+            do {
+                let followers = try await NetworkManager.shared.getFollowers(for: username, page: page)
+                updateUIWithFollowers(with: followers)
+            } catch {
+                guard let GFError = error as? GFError else {
+                    presentDefaultErrorAlert()
+                }
+                presentGFAlert(title: "Something went wrong", message: GFError.rawValue, buttonTitle: "Ok")
             }
-            self.isLoadingMoreFollowers = false
         }
     }
     
@@ -159,7 +157,7 @@ class FollowersListVC: UIViewController {
             self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
         }
     }
-
+    
 }
 
 
