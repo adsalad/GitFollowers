@@ -17,6 +17,7 @@ extension UIViewController {
             present(alertVC, animated: true)
     }
     
+    
     func presentDefaultErrorAlert() {
             let alertVC = GFAlertVC(title: "Something Went Wrong", message: "Unable to complete task. Please try again!", buttonTitle: "Ok")
             alertVC.modalPresentationStyle  = .overFullScreen

@@ -96,7 +96,7 @@ class FollowersListVC: UIViewController {
                     presentDefaultErrorAlert()
                     return
                 }
-                presentGFAlert(title: "Something went wrong", message: GFError.rawValue, buttonTitle: "Ok")
+                presentGFAlert(title: "Something Went Wrong", message: GFError.rawValue, buttonTitle: "Ok")
             }
             isLoadingMoreFollowers = false
         }

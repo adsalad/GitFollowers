@@ -32,7 +32,6 @@ enum ScreenSize {
 }
 
 // found on internet
-
 enum DeviceTypes {
     static let idiom                    = UIDevice.current.userInterfaceIdiom
     static let nativeScale              = UIScreen.main.nativeScale

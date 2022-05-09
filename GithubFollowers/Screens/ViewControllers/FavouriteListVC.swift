@@ -12,6 +12,7 @@ class FavouriteListVC: UIViewController {
     let tableView = UITableView()
     var favourites : [Follower] = []
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -39,7 +40,7 @@ class FavouriteListVC: UIViewController {
         tableView.register(GFFavouriteCell.self, forCellReuseIdentifier: GFFavouriteCell.reuseID)
     }
     
-   
+    
     func getFavourites() {
         PersistenceManager.retrieveFavourites { [weak self] result in
             guard let self = self else { return }
@@ -49,7 +50,7 @@ class FavouriteListVC: UIViewController {
                 self.updateUIWithFavourites(with: favourites)
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.presentGFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                    self.presentGFAlert(title: "Something Went Wrong", message: error.rawValue, buttonTitle: "Ok")
                 }
             }
         }
@@ -60,7 +61,7 @@ class FavouriteListVC: UIViewController {
         if favourites.isEmpty
         {
             DispatchQueue.main.async {
-                self.showEmptyScreenView(with: "No Favourites?\nAdd one on the follower screen!", in: self.view)
+                self.showEmptyScreenView(with: "No Favourites?\nSelect a user to add one! 🧑‍💻", in: self.view)
             }
         }
         else {
@@ -92,12 +93,14 @@ extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
     // handle row tap
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favorite    = favourites[indexPath.row]
-        let destVC      = FollowersListVC(username: favorite.login)
+        let followerListVC      = FollowersListVC(username: favorite.login)
         
-        navigationController?.pushViewController(destVC, animated: true)
+        navigationController?.pushViewController(followerListVC, animated: true)
     }
     
     // handle slide to delete button for UI and Persistence Manager
+    // if there is no error, present empty screen view
+    // if there is an error, present an alert with that error
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         
@@ -107,9 +110,12 @@ extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
         
         PersistenceManager.updateWith(favourite: favourite, actionType: .remove) { [weak self] error in
             guard let self = self else { return }
-            guard let error = error else { return }
+            guard let error = error else {
+                self.updateUIWithFavourites(with: self.favourites) // update UI, otherwise EmptyScreen view wont appear
+                return
+            }
             DispatchQueue.main.async {
-                self.presentGFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                self.presentGFAlert(title: "Something Went Wrong", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }

@@ -125,7 +125,7 @@ class UserInfoVC: UIViewController {
             }
             
             DispatchQueue.main.async {
-                self.presentGFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                self.presentGFAlert(title: "Something Went Wrong", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
@@ -141,7 +141,7 @@ class UserInfoVC: UIViewController {
                     presentDefaultErrorAlert()
                     return
                 }
-                presentGFAlert(title: "Something went wrong", message: GFError.rawValue, buttonTitle: "Ok")
+                presentGFAlert(title: "Something Went Wrong", message: GFError.rawValue, buttonTitle: "Ok")
             }
             
         }

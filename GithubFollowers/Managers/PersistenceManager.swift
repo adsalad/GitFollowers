@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum PersistenceActionType {
     case add, remove
 }
@@ -24,7 +23,7 @@ enum PersistenceManager {
         retrieveFavourites { result in
             switch result {
             case .success(var favourites):
-                                
+                
                 switch actionType {
                 case .add:
                     guard !favourites.contains(favourite) else {
@@ -36,9 +35,7 @@ enum PersistenceManager {
                 case .remove:
                     favourites.removeAll { $0.login == favourite.login }
                 }
-                
                 completed(saveFavourites(favourites: favourites))
-                
             case .failure(let error):
                 completed(error)
             }
@@ -47,6 +44,7 @@ enum PersistenceManager {
     
     // retrieves favourites from UserDefaults
     static func retrieveFavourites(completed: @escaping (Result<[Follower], GFError>) -> Void) {
+        
         // first time access/retrieval
         guard let favouritesData = defaults.object(forKey: Keys.favourites) as? Data else {
             completed(.success([]))
