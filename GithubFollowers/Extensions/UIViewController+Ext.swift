@@ -32,6 +32,7 @@ extension UIViewController {
         view.addSubview(emptyStateView)
     }
     
+    
     func presentSafariVC(with url: URL ){
         let safariVC = SFSafariViewController(url: url)
         safariVC.preferredBarTintColor = .systemPurple

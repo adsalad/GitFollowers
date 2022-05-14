@@ -1,7 +1,7 @@
 //
 //  GFAvatarImageView.swift
 //  GithubFollowers
-//
+//  Avatar ImageView used for Favourites + Followers screens
 //  Created by Adam S on 2022-04-10.
 //
 

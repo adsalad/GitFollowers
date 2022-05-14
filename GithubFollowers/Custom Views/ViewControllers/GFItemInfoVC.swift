@@ -1,7 +1,7 @@
 //
 //  GFItemInfoVC.swift
 //  GithubFollowers
-//
+//  This VC contains both itemInfoViews as well as the button for "Get Followers" and "Github Profile"
 //  Created by Adam S on 2022-04-24.
 //
 
@@ -15,9 +15,9 @@ class GFItemInfoVC: UIViewController {
     let itemInfoViewTwo = GFItemInfoView()
     let actionButton = GFButton()
     
-    
     var user: User!
 
+    
     init(user: User) {
         super.init(nibName: nil, bundle: nil)
         self.user = user

@@ -1,7 +1,7 @@
 //
 //  GFUserInfoHeaderVC.swift
 //  GithubFollowers
-//
+//  Top portion of the user information screen (UserInfoVC), containing name, username, location, bio, and avatar
 //  Created by Adam S on 2022-04-22.
 //
 
@@ -12,12 +12,12 @@ class GFUserInfoHeaderVC: UIViewController {
     let avatarImageView     = GFAvatarImageView(frame: .zero)
     let usernameLabel       = GFTitleLabel(textAlignment: .left, fontSize: 34)
     let nameLabel           = GFSecondaryTitleLabel(fontSize: 18)
-    let locationImageView   = UIImageView()
     let locationLabel       = GFSecondaryTitleLabel(fontSize: 18)
-    let bioLabel            = GFBodyLabel(textAlignment: .left)
-
+    let bioBody             = GFBodyLabel(textAlignment: .left)
+    let locationImageView   = UIImageView()
     
     var user: User!
+    
     
     init(user: User) {
         super.init(nibName: nil, bundle: nil)
@@ -32,7 +32,7 @@ class GFUserInfoHeaderVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubviews(avatarImageView, usernameLabel, nameLabel, locationImageView, locationLabel, bioLabel)
+        view.addSubviews(avatarImageView, usernameLabel, nameLabel, locationImageView, locationLabel, bioBody)
         configureUIElements()
         layoutUI()
     }
@@ -43,8 +43,8 @@ class GFUserInfoHeaderVC: UIViewController {
         usernameLabel.text          = user.login
         nameLabel.text              = user.name ?? ""
         locationLabel.text          = user.location ?? "No Location"
-        bioLabel.text               = user.bio ?? "No bio available"
-        bioLabel.numberOfLines      = 3
+        bioBody.text                = user.bio ?? "No bio available"
+        bioBody.numberOfLines       = 3
         
         locationImageView.image     = SFSymbols.location
         locationImageView.tintColor = .secondaryLabel
@@ -80,10 +80,10 @@ class GFUserInfoHeaderVC: UIViewController {
             locationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             locationLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            bioLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 12),
-            bioLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
-            bioLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bioLabel.heightAnchor.constraint(equalToConstant: 75)
+            bioBody.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 12),
+            bioBody.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
+            bioBody.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bioBody.heightAnchor.constraint(equalToConstant: 75)
         ])
     }
     

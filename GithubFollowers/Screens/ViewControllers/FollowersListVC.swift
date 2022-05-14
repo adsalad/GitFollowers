@@ -1,7 +1,7 @@
 //
 //  FollowersListVC.swift
 //  GithubFollowers
-//
+//  FollowerListVC presented
 //  Created by Adam S on 2022-04-03.
 //
 
@@ -23,6 +23,7 @@ class FollowersListVC: UIViewController {
     
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
+    
     
     init(username: String) {
         super.init(nibName: nil, bundle: nil)
@@ -66,7 +67,7 @@ class FollowersListVC: UIViewController {
         collectionView.register(GFFollowerCell.self, forCellWithReuseIdentifier: GFFollowerCell.reuseID)
     }
     
-    
+    // using new diffable data source to reload and animate collection view
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { collectionView, indexPath, follower in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GFFollowerCell.reuseID, for: indexPath) as! GFFollowerCell
@@ -84,6 +85,7 @@ class FollowersListVC: UIViewController {
     }
     
     
+    // async call to get followers of specific user. This works with protocols below to paginate effectively
     func getFollowers(username: String, page: Int) {
         isLoadingMoreFollowers = true
         
@@ -102,6 +104,8 @@ class FollowersListVC: UIViewController {
         }
     }
     
+    
+    // check if there are more followers to load and set flag accordingly, append whatever followers are returned, and update collecion view
     func updateUIWithFollowers(with followers: [Follower]) {
         if followers.count < 30 { self.hasMoreFollowers = false }
         self.followers.append(contentsOf: followers)
@@ -117,6 +121,7 @@ class FollowersListVC: UIViewController {
     }
     
     
+    // update collection view
     func updateData(in followers : [Follower]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
         snapshot.appendSections([.main])
@@ -131,12 +136,13 @@ class FollowersListVC: UIViewController {
 
 
 extension FollowersListVC : UICollectionViewDelegate {
+    
+    // if we reach end up scroll view, load next group of followers using pagination
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let offsetY         = scrollView.contentOffset.y
         let contentHeight   = scrollView.contentSize.height
         let height          = scrollView.frame.size.height
         
-        // load next group of followers
         if offsetY > contentHeight - height {
             guard hasMoreFollowers, !isLoadingMoreFollowers else { return }
             page += 1
@@ -144,6 +150,7 @@ extension FollowersListVC : UICollectionViewDelegate {
         }
     }
     
+    // handles tapping on specific user, and navigating to UserInfoVC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let activeArray     = isSearching ? filteredFollowers : followers
         
@@ -154,18 +161,15 @@ extension FollowersListVC : UICollectionViewDelegate {
         userInfoVC.username = follower.login
         let navController   = UINavigationController(rootViewController: userInfoVC) //present sheet view
         present(navController, animated: true)
-        
     }
 }
 
+
 extension FollowersListVC : UISearchBarDelegate {
+    
+    // update collection view based on search query
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
-            filteredFollowers.removeAll()
-            updateData(in: followers)
-            isSearching = false
-            return
-        }
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
         
         isSearching = true
         
@@ -174,13 +178,25 @@ extension FollowersListVC : UISearchBarDelegate {
     }
 }
 
+
 extension FollowersListVC: UserInfoVCDelegate {
+    
+    // when Get Followers button is tapped in UserInfoVC, we want to reset our variables, before making the API call
     func didRequestFollowers(for username: String) {
         self.username   = username
         title           = username
         page            = 1
         followers.removeAll()
         filteredFollowers.removeAll()
+        hasMoreFollowers = true
+        
+        if isSearching {
+            navigationItem.searchController?.searchBar.text = nil
+            navigationItem.searchController?.isActive       = false
+            isSearching                                     = false
+        }
+        
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         getFollowers(username: username, page: page)
     }
 }

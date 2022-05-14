@@ -1,7 +1,7 @@
 //
 //  GFAlertVC.swift
 //  GithubFollowers
-//
+//  VC for custom alert shown across app
 //  Created by Adam S on 2022-04-04.
 //
 
@@ -18,6 +18,7 @@ class GFAlertVC: UIViewController {
     var message: String?
     var buttonTitle: String?
     
+    
     init(title: String, message: String, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
         self.alertTitle     = title
@@ -29,7 +30,7 @@ class GFAlertVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
-        view.addSubview(containerView)
+        view.addSubview(containerView) // see GFAlertContainerView
         containerView.addSubviews(titleLabel, actionButton, messageLabel)
         configureContainerView()
         configureTitleLabel()

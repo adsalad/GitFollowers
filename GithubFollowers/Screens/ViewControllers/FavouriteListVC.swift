@@ -1,7 +1,7 @@
 //
 //  FavouriteListVC.swift
 //  GithubFollowers
-//
+//  FavouriteListVC used to display favourited user in the tab navigation menu
 //  Created by Adam S on 2022-03-30.
 //
 
@@ -19,16 +19,19 @@ class FavouriteListVC: UIViewController {
         configureTableView()
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getFavourites()
     }
+    
     
     func configureViewController() {
         view.backgroundColor    = .systemBackground
         title                   = "Favourites"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
     
     func configureTableView() {
         view.addSubview(tableView)
@@ -41,6 +44,7 @@ class FavouriteListVC: UIViewController {
     }
     
     
+    // retrieve list of User objects from UserDefaults
     func getFavourites() {
         PersistenceManager.retrieveFavourites { [weak self] result in
             guard let self = self else { return }
@@ -57,6 +61,7 @@ class FavouriteListVC: UIViewController {
     }
     
     
+    // reload UI with updated favourites list ^
     func updateUIWithFavourites(with favourites: ([Follower])) {
         if favourites.isEmpty
         {
@@ -75,6 +80,7 @@ class FavouriteListVC: UIViewController {
     
 }
 
+
 extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
     
     // return count
@@ -90,6 +96,7 @@ extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    
     // handle row tap
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favorite    = favourites[indexPath.row]
@@ -97,6 +104,7 @@ extension FavouriteListVC: UITableViewDelegate, UITableViewDataSource {
         
         navigationController?.pushViewController(followerListVC, animated: true)
     }
+    
     
     // handle slide to delete button for UI and Persistence Manager
     // if there is no error, present empty screen view

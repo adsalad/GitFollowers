@@ -1,12 +1,13 @@
 //
 //  GFEmptyStateView.swift
 //  GHFollowers
-//
-// Created by Adam S.
+//  Presented when there is no favourites or followers on a view
+//  Created by Adam S.
 //
 
 // interface code copied from a YT video for this file
 // I just subbed in my GitHub Image
+
 
 import UIKit
 

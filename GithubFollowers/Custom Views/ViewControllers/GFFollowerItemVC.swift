@@ -1,7 +1,7 @@
 //
 //  GFFollowerItemVC.swift
 //  GithubFollowers
-//
+//  2/2 Subclass VC's for GFItemInfoViewVC, containing custom protocol and designs
 //  Created by Adam S on 2022-04-24.
 //
 
@@ -15,6 +15,7 @@ class GFFollowerItemVC: GFItemInfoVC {
     
     var delegate: GFFollowerItemVCDelegate!
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureItems()

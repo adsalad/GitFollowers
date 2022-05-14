@@ -1,7 +1,7 @@
 //
 //  GFAlertContainerView.swift
 //  GithubFollowers
-//
+//  White/Black rectangle that contains the GFAlert message, title, and button
 //  Created by Adam S on 2022-05-03.
 //
 

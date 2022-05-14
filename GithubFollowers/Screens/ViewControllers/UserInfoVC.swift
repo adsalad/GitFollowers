@@ -1,7 +1,7 @@
 //
 //  UserInfoVC.swift
 //  GithubFollowers
-//
+//  VC presented when a user is tapped in the FollowerListVC() screen collection view
 //  Created by Adam S on 2022-04-20.
 //
 
@@ -21,6 +21,7 @@ class UserInfoVC: UIViewController {
     
     var username: String!
     weak var delegate: UserInfoVCDelegate!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,7 +155,10 @@ class UserInfoVC: UIViewController {
     
 }
 
+
 extension UserInfoVC : GFRepoItemVCDelegate {
+    
+    // presents safari with user
     func didTapGithubProfile(for user: User) {
         guard let url = URL(string: user.htmlUrl) else {
             presentGFAlert(title: "Invalid URL", message: "The URL attached to this user is invalid.", buttonTitle: "Ok")
@@ -164,7 +168,10 @@ extension UserInfoVC : GFRepoItemVCDelegate {
     }
 }
 
+
 extension UserInfoVC : GFFollowerItemVCDelegate {
+    
+    // calls on listener delegate in FollowersListVC
     func didTapGetFollowers(for user: User) {
         guard user.followers != 0 else {
             presentGFAlert(title: "No Followers", message: "This user has no followers 😪", buttonTitle: "Ok")

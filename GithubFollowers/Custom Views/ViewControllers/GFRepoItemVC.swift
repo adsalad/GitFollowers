@@ -1,7 +1,7 @@
 //
 //  GFRepoItemVC.swift
 //  GithubFollowers
-//
+//  1/2 Subclass VC's for GFItemInfoViewVC, containing custom protocol and designs
 //  Created by Adam S on 2022-04-24.
 //
 
@@ -14,6 +14,7 @@ protocol GFRepoItemVCDelegate : AnyObject {
 class GFRepoItemVC: GFItemInfoVC {
     
     var delegate: GFRepoItemVCDelegate!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -57,7 +57,7 @@ class NetworkManager {
         }
     }
     
-    
+    // download image from API, and set it in cache
     func downloadImage(from urlString: String) async -> UIImage? {
         let cacheKey = NSString(string: urlString)
         if let image = cache.object(forKey: cacheKey) { return image }

@@ -37,7 +37,7 @@ class SearchVC: UIViewController {
     
     func dismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing)) // tap to dismiss
-        view.addGestureRecognizer(tap) //
+        view.addGestureRecognizer(tap)
     }
     
     
@@ -71,7 +71,7 @@ class SearchVC: UIViewController {
     
     
     func configureTextField() {
-        usernameTextField.delegate = self //assign delegate to SearchVC (listen to me) (boss is usernameTextField)
+        usernameTextField.delegate = self
         
         NSLayoutConstraint.activate([
             usernameTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 48),
@@ -95,8 +95,11 @@ class SearchVC: UIViewController {
     
 }
 
+
 extension SearchVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool { //listener delegate (intern)
+    
+    // navigate to FollowerListVC if 'Enter' is tapped on keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         pushFollowersListVC()
         return true
     }

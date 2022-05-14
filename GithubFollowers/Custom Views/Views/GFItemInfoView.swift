@@ -1,7 +1,7 @@
 //
 //  GFItemInfoView.swift
 //  GithubFollowers
-//
+//  This is the view contained in the user information screen (UserInfoVC) that contains the icon, title, and count placed above the "Github Profile" or "Get Followers" button. There are two of these above each button.
 //  Created by Adam S on 2022-04-24.
 //
 
